@@ -1,0 +1,235 @@
+@font-face {
+    font-family: 'Overpass';
+    src: url(fonts/otf/Overpass-Regular.otf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+    font-family: 'Overpass';
+    src: url(fonts/otf/Overpass-SemiBold.otf);
+    font-weight: bold;
+    font-style: normal;
+
+    font-family: 'Fira Sans';
+    src: url(/fonts/Roman/FiraSans-Regular.otf);
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.website-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #06173e;
+    padding: 15px 30px;
+}
+
+.logo {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Overpass', sans-serif;
+    text-align: center;
+    margin: 0px;
+    background-color: #06173e;
+}
+
+h1 {
+    color: #ffffff;
+}
+
+h2 {
+    color: #ffffff;
+    font-family: "'Overpass'";
+}
+
+p {
+    color: #ffffff;
+}
+
+a {
+    color: #ffffff;
+}
+
+.logo-corner {
+    height: 100px;
+    background-color: #06173e;
+    padding: 0 15px;
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.logo-img {
+    height: 80px;
+    width: auto;
+    display: block;
+}
+
+.logo-img2 {
+    height: 100px;
+    width: auto;
+    display: block;
+}
+
+.mars-img {
+    height: 200px;
+    width: auto;
+    display: fixed;
+    align-items: center;
+}
+
+.logo-container {
+
+    background-color: #07173f;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color:#06173e;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease border-color 0.2s ease;
+
+    border: 2px solid transparent;
+}
+
+.navbar a.hover,
+.navbar a.active {
+
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 20px;
+
+    background-color: #e43700
+}
+
+.home-banner {
+    background-color: #0042a5;
+    background-image: linear-gradient(to bottom right, #0042a6, #07173f);
+    display: flex;
+    height: 50px;
+    left: 0px;
+    width: 1300px;
+    padding: 20px;
+    text-align: left;
+    align-items: center;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.test-container {
+    background-color: #07173f;
+    padding: 10px;
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: repeat(5, 240px);
+    justify-content: center;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.card {
+    background-color: #0042a6;
+    border-radius: 16px;
+    padding: 30px 20px;
+    height: 250px;
+    text-decoration: none;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: transform 0.2s, box-shadow 0.2s;
+    aspect-ratio: 1 / 1;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card-text {
+    margin: 10px 0 0 0;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+    min-height: 150px;
+}
+
+.test-symbol {
+    padding-top: 132px;
+    padding-bottom: 15px;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.symbol-key-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+    padding: 8px 12px;
+    background-color: #07173f;
+    border-radius: 6px;
+    font-family: 'Fira Sans';
+}
+
+.key-title {
+    font-weight: normal;
+    font-size: 0.85rem;
+    color: #ffffff;
+}
+
+.key-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.key-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    display: block;
+    align-items: center;
+}
+
+.key-label {
+    font-size: 0.8rem;
+    color: #ffffff;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Meet Mars! Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html" class = "active">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1>Welcome, <span id = "userDisplay"></span>!</h1>
+        </header>
+
+        <li></li>
+        <img src = "/imgs/mars-mars-background.png" alt = "Mars Image" class = "mars-img">
+        <p>Mars says hello!</p>
+        <li></li>
+        <li></li>
+        <h1>About Mars</h1>
+        <p>Mars is a 2 year old cat sent into space almost 9 months ago, and he made it all the way to the planet Mars</p>
+        <p>(hence the name)! Now, Mars needs YOUR help to get back to his home on Earth! Complete your health checks on</p>
+        <p>time, every time, and help him get home! Each health check you complete gets Mars one step closer to his</p>
+        <p>loving family at home in Houston, TX.</p>
+        <li></li>
+        <li></li>
+        <h1>Mars' Progress</h1>
+        <li></li>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = 'Test User';
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

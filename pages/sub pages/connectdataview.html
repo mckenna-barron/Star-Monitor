@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Connect External Monitoring Devices</title>
+    <link rel = "stylesheet" href = "/style.css">
+</head>
+
+<body>
+    <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html">View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <script>
+        document.getElementById('profileName').textContent = activeUser;
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+
+    <main>
+        <header class = "home-banner" >
+            <h1>ATTIS Mars Mission - Connect External Monitoring Devices</h1>
+        </header>
+
+        <li></li>
+        <p>As of right now, we do not have the access to monitoring technologies needed to facilitate a pairing between our website software and official NASA technologies.</p>
+    </main>
+</body>
+</html>

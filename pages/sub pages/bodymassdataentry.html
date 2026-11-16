@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Body Mass Data Entry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s Body Mass Data Entry</h1>
+        </header>
+
+        <li></li>
+        <h1>How to Assess Body Mass</h1>
+        <p>This is currently in progress, and has not been developed.</p>
+        <li></li>
+        <li></li>
+
+    <h2>Enter Body Mass Data</h2>
+    <form id = "bmForm">
+        <input type = "number" id = "bmNumber" placeholder = "Body Mass Number" required><br><br>
+        <button type = "submit">Submit Body Mass Data</button>
+    </form>
+
+    <script>
+        document.getElementById('bmForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const enteredBM = parseFloat(document.getElementById('bmNumber').value);
+
+            const MIN_BM = 20;
+            const MAX_BM = 400;
+
+            if (isNaN(enteredBM) || enteredBM < MIN_BM || enteredBM > MAX_BM) {
+                alert('Invalid entry. Please enter a biologically realistic body mass value');
+                return;
+            }
+
+            const userStorageKey = `bmHistory_${activeUser}`;
+
+            let bmHistory = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const newBMDataPoint = {
+                value: enteredBM,
+                timestamp: new Date().toISOString(),
+                label: `Entry ${bmHistory.length + 1}`
+            };
+
+            bmHistory.push(newBMDataPoint);
+            localStorage.setItem(userStorageKey, JSON.stringify(bmHistory));
+
+            alert('Data successfully entered.');
+            window.location.href = '/pages/infoPage.html';
+        });
+    </script>
+        <li></li>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = activeUser;
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

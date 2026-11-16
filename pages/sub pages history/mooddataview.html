@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Mood Data History</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <script src = "https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Fira Sans';
+            margin: 20px;
+        }
+        .graph-container {
+            width: 85%;
+            max-width: 800px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s Mood Data Entry</h1>
+        </header>
+
+        <li></li>
+        <h1>How to Assess Mood</h1>
+        <p>Rate how you're feeling from 1-10 in each of the fields below (1 being the least, 10 being the most).</p>
+        <li></li>
+        <li></li>
+
+        <div class = "graph-container">
+            <canvas id = "happinessChart"></canvas>
+        </div>
+
+        <div class = "graph-container">
+            <canvas id = "hopelessnessChart"></canvas>
+        </div>
+
+        <div class = "graph-container">
+            <canvas id = "boredomChart"></canvas>
+        </div>
+
+        <script>
+
+            document.getElementById('userDisplay').textContent = 'Test User';
+
+            const userStorageKey = 'moodHistory_testUser';
+            const rawData = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const labels = rawData.map((_, index) => `Entry ${index + 1}`);
+            const happinessValues = rawData.map(entry => entry.happiness);
+            const hopelessnessValues = rawData.map(entry => entry.hopelessness);
+            const boredomValues = rawData.map(entry => entry.boredom);
+
+            const formattedDates = rawData.map(entry => {
+                const dateObj = new Date(entry.timestamp);
+                return dateObj.toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'short', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                });
+            });
+
+            function createMoodChart(canvasId, chartLabel, dataValues, annotationsConfig) {
+                const ctx = document.getElementById(canvasId).getContext('2d');
+                new Chart (ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: chartLabel,
+                            data: dataValues,
+                            borderColor: '#e43700',
+                            backgroundColor: '#ffffff',
+                            borderWidth: 2,
+                            pointRadius: 6,
+                            pointHoverRadius: 8,
+                            tension: 0.1
+                        }]
+                    },
+
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 1,
+                                max: 10,
+                                title: { display: true, text: chartLabel}
+                            }
+                        },
+
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    afterLabel: function(context) {
+                                        const index = context.dataIndex;
+                                        return `Submitted: ${formattedDates[index]}`;
+                                    }
+                                }
+                            },
+
+                            annotation: {
+                                annotations: annotationsConfig
+                            }
+                        },
+                    }
+                });
+            }
+
+            createMoodChart('happinessChart', 'Happiness (1-10)', happinessValues, {
+                optimalZone: {
+                    type: 'box',
+                    drawTime: 'beforeDatasetsDraw',
+                    yMin: 6,
+                    yMax: 8,
+                    backgroundColor: 'rgba(72, 255, 2, 0.4)',
+                    borderWidth: 0,
+                    label: { content: 'Optimal (6-8)', display: true, position: 'start' }
+                },
+
+                highRiskZoneLow: {
+                    type: 'box',
+                    drawTime: 'beforeDatasetsDraw',
+                    yMin: 0,
+                    yMax: 6,
+                    backgroundColor: 'rgba(228, 55, 0, 0.4)',
+                    borderWidth: 0,
+                    label: { content: 'Low / Crisis (1-6)', display: true, position: 'start' }
+                },
+
+                highRiskZoneHigh: {
+                    type: 'box',
+                    drawTime: 'beforeDatasetsDraw',
+                    yMin: 8,
+                    yMax: 10,
+                    backgroundColor: 'rgba(228, 55, 0, 0.4)',
+                    borderWidth: 0,
+                    label: { content: 'High / Crisis (8-10)', display: true, position: 'start' }
+                }
+
+            })
+
+            createMoodChart('hopelessnessChart', 'Feelings of Hopelessness (1-10)', hopelessnessValues, {
+                optimalZone: {
+                    type: 'box',
+                    drawTime: 'beforeDatasetsDraw',
+                    yMin: 0,
+                    yMax: 3,
+                    backgroundColor: 'rgba(72, 255, 2, 0.4)',
+                    borderWidth: 0,
+                    label: { content: 'Optimal (1-3)', display: true, position: 'start' }
+                },
+
+                concernRiskZone: {
+                    type: 'box',
+                    drawTime: 'beforeDatasetsDraw',
+                    yMin: 3,
+                    yMax: 6,
+                    backgroundColor: 'rgba(234, 254, 7, 0.4)',
+                    borderWidth: 0,
+                    label: { content: 'Medium / Concern (4-6)', display: true, position: 'start' }
+                },
+
+                highRiskZone: {
+                    type: 'box',
+                    drawTime: 'beforeDatasetsDraw',
+                    yMin: 6,
+                    yMax: 10,
+                    backgroundColor: 'rgba(228, 55, 0, 0.4)',
+                    borderWidth: 0,
+                    label: { content: 'High / Crisis (7-10)', display: true, position: 'start' }
+                }
+
+            })
+
+            createMoodChart('boredomChart', 'Boredom (1-10)', boredomValues, {
+                optimalZone: {
+                    type: 'box',
+                    drawTime: 'beforeDatasetsDraw',
+                    yMin: 0,
+                    yMax: 4,
+                    backgroundColor: 'rgba(72, 255, 2, 0.4)',
+                    borderWidth: 0,
+                    label: { content: 'Optimal (1-4)', display: true, position: 'start' }
+                },
+
+                concernRiskZone: {
+                    type: 'box',
+                    drawTime: 'beforeDatasetsDraw',
+                    yMin: 4,
+                    yMax: 7,
+                    backgroundColor: 'rgba(234, 254, 7, 0.4)',
+                    borderWidth: 0,
+                    label: { content: 'Medium / Concern (5-7)', display: true, position: 'start' }
+                },
+
+                highRiskZoneHigh: {
+                    type: 'box',
+                    drawTime: 'beforeDatasetsDraw',
+                    yMin: 7,
+                    yMax: 10,
+                    backgroundColor: 'rgba(228, 55, 0, 0.4)',
+                    borderWidth: 0,
+                    label: { content: 'High / Crisis (8-10)', display: true, position: 'start' }
+                }
+
+            })
+
+        </script>
+
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = 'Test User';
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Logout clicked (disabled during NASA testing).');
+            window.location.href = '/pages/login.html';localStorage.removeItem('currentUser');
+            alert('Logout clicked (disabled during NASA testing).');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

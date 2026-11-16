@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Blood Pressure Data Entry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s Blood Pressure Data Entry</h1>
+        </header>
+
+        <li></li>
+        <h1>How to Assess Blood Pressure</h1>
+        <p>This is currently in progress, and has not been developed.</p>
+        <li></li>
+        <li></li>
+
+    <h2>Enter Blood Pressure Data</h2>
+    <form id = "bloodPressureForm">
+        <input type = "number" id = "bloodPressureNumber" placeholder = "Blood Pressure Number" required><br><br>
+        <button type = "submit">Submit Blood Pressure Data</button>
+    </form>
+
+    <script>
+        document.getElementById('bloodPressureForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const enteredBP = parseFloat(document.getElementById('bloodPressureNumber').value);
+
+            const MIN_BP = 20;
+            const MAX_BP = 400;
+
+            if (isNaN(enteredBP) || enteredBP < MIN_BP || enteredBP > MAX_BP) {
+                alert('Invalid entry. Please enter a biologically realistic BP value');
+                return;
+            }
+
+            const userStorageKey = `bloodPressureHistory_${activeUser}`;
+
+            let bloodPressureHistory = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const newBPDataPoint = {
+                value: enteredBP,
+                timestamp: new Date().toISOString(),
+                label: `Entry ${bloodPressureHistory.length + 1}`
+            };
+
+            bloodPressureHistory.push(newBPDataPoint);
+            localStorage.setItem(userStorageKey, JSON.stringify(bloodPressureHistory));
+
+            alert('Data successfully entered.');
+            window.location.href = '/pages/infoPage.html';
+        });
+    </script>
+        <li></li>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = activeUser;
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

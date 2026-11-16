@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Test History</title>
+    <link rel = "stylesheet" href = "/style.css">
+</head>
+
+<body>
+    <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" class = "active" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1>ATTIS Mars Mission - <span id = "profileName"></span>'s Test History</h1>
+        </header>
+        <li></li>
+        <p>The following tests below are accessible to crew of the ATTIS Mars Mission, as assigned by the NASA Flight Surgeon.</p>
+        <p>If there is a discrepancy with your routine tests, report it to a representative at Home Base during your next opportunity.</p>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('profileName').textContent = 'Test User';
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+
+    <div class = "test-container">
+        <a href = "/pages/sub pages history/apobdataview.html" class = "card">
+            <img src = "/imgs/eyedropper.png" alt = "APOB Symbol" class = "test-symbol">
+            <p class = "card-text">APOB Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/bilirubindataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "Bilirubin Symbol" class = "test-symbol">
+            <p class = "card-text">Bilirubin Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/bloodpressuredataview.html" class = "card">
+            <img src = "/imgs/smiley.png" alt = "Blood Pressure Symbol" class = "test-symbol">
+            <p class = "card-text">Blood Pressure Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/bloodsugardataview.html" class = "card">
+            <img src = "/imgs/eyedropper.png" alt = "Blood Sugar Symbol" class = "test-symbol">
+            <p class = "card-text">Blood Sugar Test</p>
+        </a>  
+
+        <a href = "/pages/sub pages history/bodymassdataview.html" class = "card">
+            <img src = "/imgs/smiley.png" alt = "Body Mass Symbol" class = "test-symbol">
+            <p class = "card-text">Body Mass Test</p>
+        </a>            
+
+    </div>
+    
+    <div class = "test-container">
+
+        <a href = "/pages/sub pages history/ekgdataview.html" class = "card">
+            <img src = "/imgs/smiley.png" alt = "EKG Symbol" class = "test-symbol">
+            <p class = "card-text">EKG Test</p>
+        </a>  
+
+        <a href = "/pages/sub pages history/epithelialcelldataview.html" class = "card">
+            <img src = "/imgs/test-tube.png" alt = "Epithelial Cell Symbol" class = "test-symbol">
+            <p class = "card-text">Epithelial Cell Test</p>
+        </a>        
+        
+        <a href = "/pages/sub pages history/glucosedataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "Glucose Symbol" class = "test-symbol">
+            <p class = "card-text">Glucose Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/hs-crpdataview.html" class = "card">
+            <img src = "/imgs/eyedropper.png" alt = "HS-CRP Symbol" class = "test-symbol">
+            <p class = "card-text">HS-CRP Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/ketonedataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "Ketone Symbol" class = "test-symbol">
+            <p class = "card-text">Ketone Test</p>
+        </a>
+
+    </div>    
+
+    <div class = "test-container">
+
+        <a href = "/pages/sub pages history/leukocytedataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "Leukocyte Symbol" class = "test-symbol">
+            <p class = "card-text">Leukocyte Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/mooddataview.html" class = "card">
+            <img src = "/imgs/smiley.png" alt = "Mood Symbol" class = "test-symbol">
+            <p class = "card-text">Mood Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/nitritedataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "Nitrite Symbol" class = "test-symbol">
+            <p class = "card-text">Nitrite Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/octdataview.html" class = "card">
+            <img src = "/imgs/eye.png" alt = "OCT Symbol" class = "test-symbol">
+            <p class = "card-text">OCT Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/apobdataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "Protein Symbol" class = "test-symbol">
+            <p class = "card-text">Protein Test</p>
+        </a>
+
+    </div>
+
+    <div class = "test-container">
+
+        <a href = "/pages/sub pages history/redbloodcelldataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "Red Blood Cell Symbol" class = "test-symbol">
+            <p class = "card-text">Red Blood Cell Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/sleepdataview.html" class = "card">
+            <img src = "/imgs/smiley.png" alt = "Sleep Symbol" class = "test-symbol">
+            <p class = "card-text">Sleep Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/specificgravitydataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "Specific Gravity Symbol" class = "test-symbol">
+            <p class = "card-text">Specific Gravity Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/spirometrydataview.html" class = "card">
+            <img src = "/imgs/eye.png" alt = "Spirometry Symbol" class = "test-symbol">
+            <p class = "card-text">Spirometry Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/temperaturedataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "Temperature Symbol" class = "test-symbol">
+            <p class = "card-text">Temperature Test</p>
+        </a>
+
+    </div>
+
+    <div class = "test-container">
+
+        <a href = "/pages/sub pages history/urubilinogendataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "Urubilinogen Symbol" class = "test-symbol">
+            <p class = "card-text">Urubilinogen Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/vitaminddataview.html" class = "card">
+            <img src = "/imgs/eyedropper.png" alt = "Vitamin D Symbol" class = "test-symbol">
+            <p class = "card-text">Vitamin D Test</p>
+        </a>
+
+        <a href = "/pages/sub pages history/whitebloodcelldataview.html" class = "card">
+            <img src = "/imgs/drop.png" alt = "White Blood Cell Symbol" class = "test-symbol">
+            <p class = "card-text">White Blood Cell Test</p>
+        </a>
+
+    </div>
+
+    <li></li>
+    <li></li>
+
+    <div class = "symbol-key-container">
+    <span class = "key-title">Symbol Key:</span>
+
+        <div class = "key-item">
+            <img src = "/imgs/eye.png" alt = "Eye Test Icon" class = "key-icon">
+            <span class = "key-label">Eye Test</span>
+        </div>
+
+        <div class = "key-item">
+            <img src = "/imgs/drop.png" alt = "Urine Test Icon" class = "key-icon">
+            <span class = "key-label">Urine Test</span>
+        </div>
+
+        <div class = "key-item">
+            <img src = "/imgs/smiley.png" alt = "General Test Icon" class = "key-icon">
+            <span class = "key-label">General Test</span>
+        </div>
+
+        <div class = "key-item">
+            <img src = "/imgs/test-tube.png" alt = "Saliva Test Icon" class = "key-icon">
+            <span class = "key-label">Saliva Test</span>
+        </div>
+
+        <div class = "key-item">
+            <img src = "/imgs/eyedropper.png" alt = "Blood Test Icon" class = "key-icon">
+            <span class = "key-label">Blood Test</span>
+        </div>
+
+    </div>
+
+</body>
+</html>

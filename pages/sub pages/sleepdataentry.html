@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Sleep Data Entry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s Sleep Data Entry</h1>
+        </header>
+
+        <li></li>
+        <h1>How to Assess Sleep</h1>
+        <p>To measure your sleep, look at the clock when you go to bed and write it down. When you wake up, write that </p>
+        <p>time down. Calculate the hours you slept, then input those values below.</p>
+        <li></li>
+        <li></li>
+
+    <h2>Enter Sleep Data</h2>
+    <form id = "sleepForm">
+        <input type = "number" id = "sleepNumber" placeholder = "Hours of Sleep (e.g., 7.5)" step = "0.1" min = "0" max = "24" required><br><br>
+        <button type = "submit">Submit Sleep Data</button>
+    </form>
+
+    <script>
+        document.getElementById('sleepForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const enteredSleep = parseFloat(document.getElementById('sleepNumber').value);
+
+            const MIN_HOURS = 0;
+            const MAX_HOURS = 24;
+
+            if (isNaN(enteredSleep) || enteredSleep < MIN_HOURS || enteredSleep > MAX_HOURS) {
+                alert('Invalid entry. Please enter a realistic number of hours (0-24).');
+                return;
+            }
+
+            const userStorageKey = 'sleepHistory_testUser';
+
+            let sleepHistory = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const newSleepDataPoint = {
+                value: enteredSleep,
+                timestamp: new Date().toISOString(),
+                label: `Entry ${sleepHistory.length + 1}`
+            };
+
+            sleepHistory.push(newSleepDataPoint);
+            localStorage.setItem(userStorageKey, JSON.stringify(sleepHistory));
+
+            alert('Data successfully entered.');
+            window.location.href = '/pages/infoPage.html';
+        });
+    </script>
+        <li></li>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = 'Test User';
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Logout clicked (disabled during NASA testing).');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

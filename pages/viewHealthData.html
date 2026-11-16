@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Look At Recommended Health Interventions Here</title>
+    <link rel = "stylesheet" href = "/style.css">
+</head>
+
+<body>
+    <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html">View History</a></li>
+                <li><a href = "/pages/viewHealthData.html" class = "active" >View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <script>
+        document.getElementById('profileName').textContent = activeUser;
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+
+    <main>
+        <header class = "home-banner" >
+            <h1>ATTIS Mars Mission - Recommended Health Interventions</h1>
+        </header>
+
+        <li></li>
+        <h1>Behavioral Health Interventions: </h1>
+        <li></li>
+        <h2>If you are feeling anxious or depressed, try TIPP! </h2>
+        <li></li>
+        <li></li>
+
+        <p>T: Temperature</p>
+        <p style = "text-indent: 2em";>Hold something cold/ hot (not enough to cause damage to you)</p>
+        <p>I: Intense Exercise</p>
+        <p style = "text-indent: 2em";>If you can, use this time to exercise in some way to get your heart rate up</p>
+        <p>P: Paced Breathing</p>
+        <p style = "text-indent: 2em";>Try box breathing. 4 seconds in, 4 seconds hold, 4 seconds out, 4 seconds hold. Repeat until the panic goes away.</p>
+        <p>P: Progressive Muscle Relaxation</p>
+        <p style = "text-indent: 2em";>Tense a specific muscle group (ex. legs) as much as possible for 5 seconds, then release. Repeat with another muscle group. </p>
+        
+        <li></li>
+
+        <p>Write it down. </p>
+        <p style = "text-indent: 2em";>In a journal or on a digital device, write down your feelings.
+        <li></li>
+        <p></p>
+    </main>
+</body>
+</html>

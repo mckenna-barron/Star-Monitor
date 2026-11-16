@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - User Sign-In</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/black_logo_starmonitor.png" alt = "Program Logo" class = "logo-img">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/signup.html" class = "active">Sign Up</a></li>
+                <li><a href = "/pages/login.html">Log In</a></li>
+                <li><a href = "/index.html">Go Back</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <li></li>
+    <h2>Create an Account</h2>
+    <form id = "signupForm">
+        <input type = "text" id = "newUsername" placeholder = "Choose a username" required><br><br>
+        <input type = "password" id = "newPassword" placeholder = "Choose a password" required><br><br>
+        <button type = "submit">Create an Account</button>
+    </form>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('newUsername').value;
+            const pass = document.getElementById('newPassword').value;
+
+            localStorage.setItem('savedUser', user);
+            localStorage.setItem('savedPass', pass);
+
+            alert('Account created! Please log in.');
+            window.location.href = '/pages/login.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Ketone Data Entry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s Ketone Data Entry</h1>
+        </header>
+
+        <li></li>
+        <h1>How to Assess Ketone Levels</h1>
+        <p>This is currently in progress, and has not been developed.</p>
+        <li></li>
+        <li></li>
+
+    <h2>Enter Ketone Data</h2>
+    <form id = "ketoneForm">
+        <input type = "number" id = "ketoneNumber" placeholder = "Ketone Number" required><br><br>
+        <button type = "submit">Submit Ketone Data</button>
+    </form>
+
+    <script>
+        document.getElementById('ketoneForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const enteredKetone = parseFloat(document.getElementById('ketoneNumber').value);
+
+            const MIN_KETONE = 20;
+            const MAX_KETONE = 400;
+
+            if (isNaN(enteredKETONE) || enteredKetone < MIN_KETONE || enteredKetone > MAX_KETONE) {
+                alert('Invalid entry. Please enter a biologically realistic Ketone value');
+                return;
+            }
+
+            const userStorageKey = `ketoneHistory_${activeUser}`;
+
+            let ketoneHistory = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const newKetoneDataPoint = {
+                value: enteredKetone,
+                timestamp: new Date().toISOString(),
+                label: `Entry ${ketoneHistory.length + 1}`
+            };
+
+            ketoneHistory.push(newKetoneDataPoint);
+            localStorage.setItem(userStorageKey, JSON.stringify(ketoneHistory));
+
+            alert('Data successfully entered.');
+            window.location.href = '/pages/infoPage.html';
+        });
+    </script>
+        <li></li>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = activeUser;
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

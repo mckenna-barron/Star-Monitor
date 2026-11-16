@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - APOB Data Entry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s APOB Data Entry</h1>
+        </header>
+
+        <li></li>
+        <h1>How to Assess APOB</h1>
+        <p>Mars is a 2 year old cat sent into space almost 9 months ago, and he made it all the way to the planet Mars</p>
+        <p>(hence the name)! Now, Mars needs YOUR help to get back to his home on Earth! Complete your health checks on</p>
+        <p>time, every time, and help him get home! Each health check you complete gets Mars one step closer to his</p>
+        <p>loving family at home in Houston, TX.</p>
+        <li></li>
+        <li></li>
+
+    <h2>Enter APOB Data</h2>
+    <form id = "APOBForm">
+        <input type = "number" id = "apobNumber" placeholder = "APOB Number" required><br><br>
+        <button type = "submit">Submit APOB Data</button>
+    </form>
+
+    <script>
+        document.getElementById('APOBForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const enteredAPOB = parseFloat(document.getElementById('apobNumber').value);
+
+            const MIN_APOB = 20;
+            const MAX_APOB = 400;
+
+            if (isNaN(enteredAPOB) || enteredAPOB < MIN_APOB || enteredAPOB > MAX_APOB) {
+                alert('Invalid entry. Please enter a biologically realistic APOB value');
+                return;
+            }
+
+            const userStorageKey = `APOBHistory_${activeUser}`;
+
+            let APOBHistory = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const newAPOBDataPoint = {
+                value: enteredAPOB,
+                timestamp: new Date().toISOString(),
+                label: `Entry ${APOBHistory.length + 1}`
+            };
+
+            APOBHistory.push(newAPOBDataPoint);
+            localStorage.setItem(userStorageKey, JSON.stringify(APOBHistory));
+
+            alert('Data successfully entered.');
+            window.location.href = '/pages/infoPage.html';
+        });
+    </script>
+        <li></li>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = activeUser;
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

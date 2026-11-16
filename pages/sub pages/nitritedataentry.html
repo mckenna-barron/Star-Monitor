@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Nitrite Data Entry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s Nitrite Data Entry</h1>
+        </header>
+
+        <li></li>
+        <h1>How to Assess Nitrite Levels</h1>
+        <p>This is currently in progress, and has not been developed.</p>
+        <li></li>
+        <li></li>
+
+    <h2>Enter Nitrite Data</h2>
+    <form id = "nitriteForm">
+        <input type = "number" id = "nitriteNumber" placeholder = "Nitrite Number" required><br><br>
+        <button type = "submit">Submit Nitrite Data</button>
+    </form>
+
+    <script>
+        document.getElementById('nitriteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const enteredNitrite = parseFloat(document.getElementById('nitriteNumber').value);
+
+            const MIN_NITRITE = 20;
+            const MAX_NITRITE = 400;
+
+            if (isNaN(enteredNitrite) || enteredNitrite < MIN_NITRITE || enteredNitrite > MAX_NITRITE) {
+                alert('Invalid entry. Please enter a biologically realistic nitrite value');
+                return;
+            }
+
+            const userStorageKey = `nitriteHistory_${activeUser}`;
+
+            let nitriteHistory = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const newNitriteDataPoint = {
+                value: enteredNitrite,
+                timestamp: new Date().toISOString(),
+                label: `Entry ${nitriteHistory.length + 1}`
+            };
+
+            nitriteHistory.push(newNitriteDataPoint);
+            localStorage.setItem(userStorageKey, JSON.stringify(nitriteHistory));
+
+            alert('Data successfully entered.');
+            window.location.href = '/pages/infoPage.html';
+        });
+    </script>
+        <li></li>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = activeUser;
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

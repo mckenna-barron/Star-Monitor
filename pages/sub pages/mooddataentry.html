@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Mood Data Entry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s Mood Data Entry</h1>
+        </header>
+
+        <li></li>
+        <h1>How to Assess Mood</h1>
+        <p>Rate how you're feeling from 1-10 in each of the fields below (1 being the least, 10 being the most).</p>
+        <li></li>
+        <li></li>
+
+    <h2>Enter Mood Data</h2>
+    <form id = "moodForm">
+        <label for = "happinessNumber">Happiness (1-10):</label><br>
+        <input type = "number" id = "happinessNumber" min = "1" max = "10" placeholder = "1-10" required><br><br>
+
+        <label for = "hopelessnessNumber">Feelings of Hopelessness (1-10):</label><br>
+        <input type = "number" id = "hopelessnessNumber" min = "1" max = "10" placeholder = "1-10" required><br><br>
+
+        <label for = "boredomNumber">Boredom (1-10):</label><br>
+        <input type = "number" id = "boredomNumber" min = "1" max = "10" placeholder = "1-10" required><br><br>
+
+        <button type = "submit">Submit Mood Data</button>
+    </form>
+
+    <script>
+        document.getElementById('moodForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const happiness = parseFloat(document.getElementById('happinessNumber').value);
+            const hopelessness = parseFloat(document.getElementById('hopelessnessNumber').value);
+            const boredom = parseFloat(document.getElementById('boredomNumber').value);
+
+            const MIN_VAL = 1;
+            const MAX_VAL = 10;
+
+            const isInvalid = (val) => isNaN(val) || val < MIN_VAL || val > MAX_VAL;
+
+            if (isInvalid(happiness) || isInvalid(hopelessness) || isInvalid(boredom)) {
+                alert('Invalid entry. Please enter a number between 1 and 10 for all three values.');
+                return;
+            }
+
+            const userStorageKey = 'moodHistory_testUser';
+
+            let moodHistory = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const newMoodDataPoint = {
+                happiness: happiness,
+                hopelessness: hopelessness,
+                boredom: boredom,
+                timestamp: new Date().toISOString(),
+                label: `Entry ${moodHistory.length + 1}`
+            };
+
+            moodHistory.push(newMoodDataPoint);
+            localStorage.setItem(userStorageKey, JSON.stringify(moodHistory));
+
+            alert('Data successfully entered.');
+            window.location.href = '/pages/infoPage.html';
+        });
+    </script>
+        <li></li>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = 'Test User';
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

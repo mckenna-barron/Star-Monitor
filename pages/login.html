@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - User Login</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/signup.html">Sign Up</a></li>
+                <li><a href = "/pages/login.html" class = "active">Log In</a></li>
+                <li><a href = "/index.html">Go Back</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <li></li>
+    <h2>Log In</h2>
+    <form id = "loginForm">
+        <input type = "text" id = "username" placeholder = "Username" required><br><br>
+        <input type = "password" id = "password" placeholder = "Password" required><br><br>
+        <button type = "submit">Log In</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const enteredUser = document.getElementById('username').value;
+            const enteredPass = document.getElementById('password').value;
+
+            const storedUser = localStorage.getItem('savedUser');
+            const storedPass = localStorage.getItem('savedPass');
+
+            if (enteredUser == storedUser && enteredPass == storedPass) {
+                localStorage.setItem('currentUser', enteredUser);
+                window.location.href = 'meetMars.html';
+            } else {
+                alert('Invalid username or password.');
+            }
+        });
+    </script>
+</body>
+</html>

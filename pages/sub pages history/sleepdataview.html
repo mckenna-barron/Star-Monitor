@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Sleep Data History</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <script src = "https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src = "https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Fira Sans';
+            margin: 20px;
+        }
+        .graph-container {
+            width: 85%;
+            max-width: 800px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s Sleep Data Entry</h1>
+        </header>
+
+        <div class = "graph-container">
+            <canvas id = "sleepChart"></canvas>
+        </div>
+
+        <script>
+            const userStorageKey = 'sleepHistory_testUser';
+            const rawData = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const labels = rawData.map((entry, index) => `Entry ${index + 1}`);
+            const values = rawData.map(entry => entry.value);
+            const formattedDates = rawData.map(entry => {
+                const dateObj = new Date(entry.timestamp);
+                return dateObj.toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'short', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                });
+            });
+
+            const ctx = document.getElementById('sleepChart').getContext('2d');
+            new Chart (ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Hours of Sleep (0-24)',
+                        data: values,
+                        borderColor: '#e43700',
+                        backgroundColor: '#ffffff',
+                        borderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        tension: 0.1
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 24,
+                            title: { display: true, text: 'Hours of Sleep (0-24)'}
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function(context) {
+                                    const index = context.dataIndex;
+                                    return `Submitted: ${formattedDates[index]}`;
+                                }
+                            }
+                        },
+
+                        annotation: {
+                            annotations: {
+                                optimalZone: {
+                                    type: 'box',
+                                    drawTime: 'beforeDatasetsDraw',
+                                    yMin: 8,
+                                    yMax: 10,
+                                    backgroundColor: 'rgba(72, 255, 2, 0.4)',
+                                    borderWidth: 0,
+                                    label: { content: 'Optimal (8-10)', display: true, position: 'start'}
+                                },
+
+                                highRiskZoneLow: {
+                                    type: 'box',
+                                    drawTime: 'beforeDatasetsDraw',
+                                    yMin: 0,
+                                    yMax: 8,
+                                    backgroundColor: 'rgba(228, 55, 0, 0.4)',
+                                    borderWidth: 0,
+                                    label: { content: 'Low / Crisis (0-8)', display: true, position: 'start'}
+                                },
+
+                                highRiskZoneHigh: {
+                                    type: 'box',
+                                    drawTime: 'beforeDatasetsDraw',
+                                    yMin: 10,
+                                    yMax: 24,
+                                    backgroundColor: 'rgba(228, 55, 0, 0.4)',
+                                    borderWidth: 0,
+                                    label: { content: 'High / Crisis (11-24)', display: true, position: 'start'}
+                                }
+                            }
+                        }
+                    },
+                }
+            });
+        </script>
+
+        <li></li>
+        <h1>How to Assess Sleep</h1>
+        <p>To measure your sleep, look at the clock when you go to bed and write it down. When you wake up, write that </p>
+        <p>time down. Calculate the hours you slept, then input those values below.</p>
+        <li></li>
+        <li></li>
+
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = 'Test User';
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

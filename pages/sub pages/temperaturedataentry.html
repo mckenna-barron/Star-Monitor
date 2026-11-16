@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - Temperature Data Entry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s Temperature Data Entry</h1>
+        </header>
+
+        <li></li>
+        <h1>How to Assess Temperature</h1>
+        <p>Make sure that you are wearing your heat sensing headband and/or chest band. Check telemetry data from your </p>
+        <p>recording device (computer, tablet, etc) and input your body temperature in Fahrenheit below</p>
+        <li></li>
+        <li></li>
+
+    <h2>Enter Temperature Data</h2>
+    <form id = "temperatureForm">
+        <input type = "number" step = "any" id = "temperatureNumber" placeholder = "Temperature (F)" required><br><br>
+        <button type = "submit">Submit Temperature Data</button>
+    </form>
+
+    <script>
+        document.getElementById('temperatureForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const enteredTemperature = parseFloat(document.getElementById('temperatureNumber').value);
+
+            const MIN_TEMP = 71;
+            const MAX_TEMP = 115;
+
+            if (isNaN(enteredTemperature) || enteredTemperature < MIN_TEMP || enteredTemperature > MAX_TEMP) {
+                alert('Invalid entry. Please enter a biologically realistic temperature value');
+                return;
+            }
+
+            const userStorageKey = 'temperatureHistory_Test User';
+
+            let temperatureHistory = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const newTemperatureDataPoint = {
+                value: enteredTemperature,
+                timestamp: new Date().toISOString(),
+                label: `Entry ${temperatureHistory.length + 1}`
+            };
+
+            temperatureHistory.push(newTemperatureDataPoint);
+            localStorage.setItem(userStorageKey, JSON.stringify(temperatureHistory));
+
+            alert('Data successfully entered.');
+            window.location.href = '/pages/infoPage.html';
+        });
+    </script>
+        <li></li>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = 'Test User';
+
+        function logout() {
+           localStorage.removeItem('currentUser');
+            alert('Logout clicked (disabled during NASA testing).');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>

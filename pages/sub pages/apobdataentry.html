@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Monitor - APOB Data Entry</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+        <header class = "website-header">
+        <div class = "logo-container">
+            <a href = "/index.html" class = "logo-corner">
+                <img src = "/imgs/NASA Space Apps Logos - 2026/Space Apps Logo Color and White.png" alt = "Website Logo" class = "logo-img">
+                <img src = "/imgs/starmonitor-transparent.png" alt = "Program Logo" class = "logo-img2">
+            </a>
+        </div>
+
+        <nav class = "navbar">
+            <ul>
+                <li><a href = "/pages/meetMars.html">Meet Mars!</a></li>
+                <li><a href = "/pages/infoPage.html">Input Health Data</a></li>
+                <li><a href = "/pages/infoViewPage.html" >View History</a></li>
+                <li><a href = "/pages/viewHealthData.html">View Recommendations</a></li>
+                <a onclick = "logout()">Log Out</a>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <header class = "home-banner" >
+            <h1><span id = "userDisplay"></span>'s APOB Data Entry</h1>
+        </header>
+
+        <li></li>
+        <h1>How to Assess APOB</h1>
+        <p>To test ApoB levels, use the 1Drop ApoB cartridge. Pinching the button between the fleshy bits of your finger and thumb, </p>
+        <p>press down to reveal the needle and prick yourself. Wait 15 minutes, then load into the 1Drop reader and wait for results. </p>
+        <p>When results come back, enter the number in mg/dL below.</p>
+        <li></li>
+        <li></li>
+
+    <h2>Enter APOB Data</h2>
+    <form id = "APOBForm">
+        <input type = "number" id = "apobNumber" placeholder = "APOB Number" required><br><br>
+        <button type = "submit">Submit APOB Data</button>
+    </form>
+
+    <script>
+        document.getElementById('APOBForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const enteredAPOB = parseFloat(document.getElementById('apobNumber').value);
+
+            const MIN_APOB = 20;
+            const MAX_APOB = 400;
+
+            if (isNaN(enteredAPOB) || enteredAPOB < MIN_APOB || enteredAPOB > MAX_APOB) {
+                alert('Invalid entry. Please enter a biologically realistic APOB value');
+                return;
+            }
+
+            const userStorageKey = 'APOBHistory_testUser';
+
+            let APOBHistory = JSON.parse(localStorage.getItem(userStorageKey)) || [];
+
+            const newAPOBDataPoint = {
+                value: enteredAPOB,
+                timestamp: new Date().toISOString(),
+                label: `Entry ${APOBHistory.length + 1}`
+            };
+
+            APOBHistory.push(newAPOBDataPoint);
+            localStorage.setItem(userStorageKey, JSON.stringify(APOBHistory));
+
+            alert('Data successfully entered.');
+            window.location.href = '/pages/infoPage.html';
+        });
+    </script>
+        <li></li>
+        <li></li>
+    </main>
+
+    <script>
+        document.getElementById('userDisplay').textContent = activeUser;
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Logout clicked (disabled during NASA testing).');
+            window.location.href = '/pages/login.html';
+        }
+    </script>
+</body>
+</html>
